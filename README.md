@@ -1,2 +1,2 @@
 # YSTest
-leate_test
+learn_test
