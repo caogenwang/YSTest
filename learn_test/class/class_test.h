@@ -30,21 +30,21 @@ public:
     ~Info();
 };
 
-class TDConstructed//委托构造函数
-{
+// class TDConstructed//委托构造函数
+// {
 
-    template<class T> TDConstructed(T first,T last):l(first,last){}
-    list<int> l;
-    public:
-        TDConstructed(vector<short> &v):TDConstructed(v.begin(),v.end()){}
-        TDConstructed(deque<int> &d):TDConstructed(d.begin(),d.end()){}
-};
+//     template<class T> TDConstructed(T first,T last):l(first,last){}
+//     list<int> l;
+//     public:
+//         TDConstructed(vector<short> &v):TDConstructed(v.begin(),v.end()){}
+//         TDConstructed(deque<int> &d):TDConstructed(d.begin(),d.end()){}
+// };
 
-class HasPtrMem{//带有指针的类
-    public:
-        HasPtrMem():d(new int(0)){}
-        HasPtrMem(const HasPtrMem$h):d(new int(*h.d)){}
-        ~HasPtrMem(){delete d;}
-        int *d;
-};
+// class HasPtrMem{//带有指针的类
+//     public:
+//         HasPtrMem():d(new int(0)){}
+//         HasPtrMem(const HasPtrMem$h):d(new int(*h.d)){}
+//         ~HasPtrMem(){delete d;}
+//         int *d;
+// };
 #endif
