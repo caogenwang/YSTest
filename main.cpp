@@ -359,6 +359,7 @@ class Bar
 
 
 typedef std::unordered_map<std::string,std::string> stringmap;
+#if 0
 int main(int argc, char const *argv[])
 {
     // std::cout<<meta_func<1,2>::value<<std::endl;
@@ -385,5 +386,119 @@ int main(int argc, char const *argv[])
 
     // func_test<Foo_test>();
     // func_test<Bar_test>();
+    return 0;
+}
+#endif
+/*bind调用*/
+void call_when_event(int x,const std::function<void(int)>&f)
+{
+    std::cout<<"bind"<<std::endl;
+    f(x);
+}
+
+void output(int x)
+{
+    std::cout<< x << " ";
+}
+
+void output_add2(int x)
+{
+    std::cout<< x + 2 << " ";
+}
+#if 0
+int main(int argc, char const *argv[])
+{
+    // {
+    //     auto fr = std::bind(output,std::placeholders::_1);
+    //     for(int i =0;i < 10;i++)
+    //     {
+    //         call_when_event(i,fr);
+    //     }
+    //     std::cout<<std::endl;
+    // }
+    // {
+    //     auto fr = std::bind(output_add2,std::placeholders::_1);
+    //     for(int i =0;i < 10;i++)
+    //     {
+    //         call_when_event(i,fr);
+    //     }
+    //     std::cout<<std::endl;
+    // }
+    //系统占字节的大小
+    std::cout<<sizeof(int)<<std::endl;//4
+    std::cout<<sizeof(size_t)<<std::endl;//8
+    std::cout<<sizeof(char)<<std::endl;//1
+    std::cout<<sizeof(long int)<<std::endl;//8
+    std::cout<<sizeof(long long int)<<std::endl;//8
+    std::cout<<sizeof(short int)<<std::endl;//2
+    std::cout<<sizeof(float)<<std::endl;//4
+    std::cout<<sizeof(double)<<std::endl;//8
+    std::cout<<sizeof(long double)<<std::endl;//16
+    return 0;
+}
+#endif
+class A
+{
+    public:
+        int i_ = 0;
+         void output(int x,int y)
+         {
+             std::cout<<x<<" "<<y<<std::endl;
+         }
+};
+/*move移动语义*/
+class MyString{
+    private:
+        char *m_data;
+        size_t m_len;
+        void copy_data(const char *s)
+        {
+            m_data = new char(m_len+1);
+            memcpy(m_data,s,m_len);
+            m_data[m_len] = '\0';
+        }
+    public:
+        MyString(){
+            m_data = NULL;
+            m_len = 0;
+        }
+        MyString(const char *p){//带参构造函数
+           m_len = strlen(p);
+           copy_data(p);
+        }
+        MyString(const MyString &str){
+           m_len = str.m_len;
+           copy_data(str.m_data);
+           std::cout << "Copy Constructor is called! source: "<<str.m_data<<std::endl;
+        }
+        MyString &operator=(const MyString &str){
+            if(this != &str){
+                m_len = str.m_len;
+                copy_data(str.m_data);
+            }
+            std::cout << "Copy Assigment is called! source: "<<str.m_data<<std::endl;
+            return *this;
+        }
+        virtual ~MyString(){
+            if(m_data)
+                free(m_data);
+        }
+};
+void test()
+{
+    MyString a;
+    a = MyString("Hello");
+    std::vector<MyString> vec;
+    vec.push_back(MyString("Wrold"));
+}
+int main(int argc, char const *argv[])
+{
+    // A a;
+    // std::function<void(int,int)> fr = std::bind(&A::output,&a,std::placeholders::_1,std::placeholders::_2);
+    // fr(1,2);
+    // std::function<int&(void)> fr_i = std::bind(&A::i_,&a);
+    // fr_i() = 123;
+    // std::cout<<a.i_<<std::endl;
+    test();
     return 0;
 }
