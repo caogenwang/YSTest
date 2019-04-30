@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <stack>
+#include <string>
 #include "BinaryTree.h"
 using namespace std;
 /*****************************
@@ -42,6 +44,42 @@ public:
 class Solution {
 public:
     int evalRPN(vector<string> &tokens) {
-        
+        stack<int> s; 
+        size_t result = 0;
+        for(size_t i = 0; i < tokens.size(); i++)
+        {
+            if(tokens[i] == "+" || tokens[i] == "-" ||
+            tokens[i] == "*" ||tokens[i] == "/" )
+            {
+                if(s.size() < 2) return 0;
+                int a = s.top();s.pop();
+                int b = s.top();s.pop();
+                if (tokens[i] == "+")
+                {
+                    result = a + b;
+                    s.push(result);
+                }else if(tokens[i] == "-")
+                {
+                    result = a - b;
+                    s.push(result);
+                }
+                else if(tokens[i] == "*")
+                {
+                    result = a * b;
+                    s.push(result);
+                }
+                else if(tokens[i] == "/")
+                {
+                    result = a / b;
+                    s.push(result);
+                }
+                
+            }
+            else
+            {
+                s.push(atoi(tokens[i].c_str()));
+            }
+            
+        } 
     }
 };
