@@ -149,3 +149,88 @@ public:
         return ret; 
     }
 };
+
+/*****************************
+4、sort a link list by 归并排序
+思路：
+因为题目要求复杂度为O(nlogn),故可以考虑归并排序的思想。
+归并排序的一般步骤为：
+1）将待排序数组（链表）取中点并一分为二；
+2）递归地对左半部分进行归并排序；
+3）递归地对右半部分进行归并排序；
+4）将两个半部分进行合并（merge）,得到结果。
+
+所以对应此题目，可以划分为三个小问题：
+1）找到链表中点 （快慢指针思路，快指针一次走两步，慢指针一次走一步，快指针在链表末尾时，慢指针恰好在链表中点）；
+2）写出merge函数，即如何合并链表。 （见merge-two-sorted-lists 一题解析）
+3）写出mergesort函数，实现上述步骤。
+*****************************/
+class Solution {
+struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};
+
+public:
+    ListNode *sortList(ListNode *head) {
+        if(head == nullptr || head->next == nullptr)
+        {
+            return head;
+        }
+        ListNode *mid = search_middle(head);
+        ListNode *midnext = mid->next;
+        mid->next = nullptr;
+        return merge(sortList(head),sortList(midnext));
+    }
+
+    ListNode *search_middle(ListNode *head)
+    {
+        ListNode *f=head;
+        ListNode *s = head;
+        if(head!=nullptr)
+        {
+            while (f != nullptr)
+            {
+                f=f->next;
+                if(f!=nullptr)
+                {
+                    f=f->next;
+                    s=s->next;
+                }
+            }
+        }
+        return s;
+    }
+   ListNode * merge(ListNode * n1,ListNode *n2)
+   {
+        ListNode *preHead = new ListNode(0);
+        ListNode *cur1 = n1;
+        ListNode *cur2 = n2;
+        ListNode *cur = preHead;
+        while (cur1 != nullptr && cur2 != nullptr)
+        {
+            if(cur1->val < cur2->val)
+            {
+                cur->next = cur1;
+                cur1 = cur1->next;
+            }
+            else
+            {
+                
+                cur->next = cur2;
+                cur2 = cur2->next;
+            }
+            cur=cur->next;
+        }
+        if(cur1 != nullptr)
+        {
+            cur->next = cur1;
+        }
+        if(cur2 != nullptr)
+        {
+            cur->next = cur2;
+        }
+        return preHead->next;
+   }
+};
