@@ -202,7 +202,7 @@ public:
         }
         return s;
     }
-   ListNode * merge(ListNode * n1,ListNode *n2)
+   ListNode * merge(ListNode * n1,ListNode *n2)//两个链表的合并
    {
         ListNode *preHead = new ListNode(0);
         ListNode *cur1 = n1;
