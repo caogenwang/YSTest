@@ -22,3 +22,12 @@ int main(int argc,char**argv)
     printf("\n");
     return 0;
 }
+
+void mergeSort(int *test,int left,int right){
+        if (left<right){
+            int middle = (left+right)/2;
+            mergeSort(test, 0, middle-1);
+            mergeSort(test, middle+1, right);
+            merge(test,left,middle,right);
+        }
+}
