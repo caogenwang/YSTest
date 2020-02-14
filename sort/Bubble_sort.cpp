@@ -13,17 +13,40 @@ int main(int argc,char**argv)
     }
     printf("\n");
 
-    for (int i = 0; i < length; i++)
-    {
-        for (int j = 0; j < length; j++)
-        {
-            if (test[i] < test[j])
-            {
-                int temp = test[i];
-                test[i] = test[j];
-                test[j] = temp;
-             } 
+    //1、
+    // for (int i = 0; i < length; i++)
+    // {
+    //     for (int j = 0; j < length; j++)
+    //     {
+    //         if (test[i] < test[j])
+    //         {
+    //             int temp = test[i];
+    //             test[i] = test[j];
+    //             test[j] = temp;
+    //          } 
+    //     }
+    //     printf("exange: ");
+    //     for (int m = 0; m < length; m++)
+    //     {
+    //         printf("%d ",test[m]);
+    //     }
+    //     printf("\n");
+    // }
+    //2、
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10 -i - 1; j++) {
+            if (test[j + 1] < test[j]) {
+                int t = test[j];
+                test[j] = test[j+1];
+                test[j+1] = t;
+            }
         }
+        printf("exange: ");
+        for (int m = 0; m < length; m++)
+        {
+            printf("%d ",test[m]);
+        }
+        printf("\n"); 
     }
     
     printf("The result array:\n");
