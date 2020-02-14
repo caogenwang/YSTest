@@ -17,7 +17,7 @@ int main(int argc,char**argv)
     {
         for (int j = 0; j < length; j++)
         {
-            if (test[i] < test[j] )
+            if (test[i] < test[j])
             {
                 int temp = test[i];
                 test[i] = test[j];
