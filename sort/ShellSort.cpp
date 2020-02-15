@@ -11,7 +11,7 @@ void group_sort(int *a, int n, int i,int gap)
         if (a[j] < a[j - gap])
         {
             int tmp = a[j];
-            int k = j - gap;
+            int k = j - gap;//这一段是插入排序
             while (k >= 0 && a[k] > tmp)
             {
                 a[k + gap] = a[k];
