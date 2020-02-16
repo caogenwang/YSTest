@@ -18,24 +18,24 @@
 // }
 
 void merge(int* arr, int left, int mid, int right) {
-         //先用一个临时数组把他们合并汇总起来
-         int* a = new int[right - left + 1];
-         int i = left;
-         int j = mid + 1;
-         int k = 0;
-         while (i <= mid && j <= right) {
-             if (arr[i] < arr[j]) {
-                 a[k++] = arr[i++];
-             } else {
-                 a[k++] = arr[j++];
-             }
-         }
-         while(i <= mid) a[k++] = arr[i++];
-         while(j <= right) a[k++] = arr[j++];
-         // 把临时数组复制到原数组
-         for (i = 0; i < k; i++) {
-             arr[left++] = a[i];
-         }
+    //先用一个临时数组把他们合并汇总起来
+    int* a = new int[right - left + 1];
+    int i = left;
+    int j = mid + 1;
+    int k = 0;
+    while (i <= mid && j <= right) {
+        if (arr[i] < arr[j]) {
+            a[k++] = arr[i++];
+        } else {
+            a[k++] = arr[j++];
+        }
+    }
+    while(i <= mid) a[k++] = arr[i++];
+    while(j <= right) a[k++] = arr[j++];
+    // 把临时数组复制到原数组
+    for (i = 0; i < k; i++) {
+        arr[left++] = a[i];
+    }
     delete []a;
 }
 

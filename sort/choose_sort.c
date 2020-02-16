@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+
+
 int test[10]={2,9,5,6,4,8,7,3,1,0};
 int main(int argc,char**argv)
 {
