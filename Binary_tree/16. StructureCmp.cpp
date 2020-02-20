@@ -15,5 +15,11 @@ struct TreeNode {
 
 bool StructureCmp(TreeNode * pRoot1, TreeNode * pRoot2)
 {
+    if (pRoot1 == nullptr && pRoot2 == nullptr)
+        return true;
+    if ((pRoot1 == nullptr && pRoot2 != nullptr)
+    || (pRoot1 != nullptr && pRoot2 == nullptr))
+        return false;
     
+    return StructureCmp(pRoot1->left,pRoot2->left) && StructureCmp(pRoot1->right,pRoot2->right);
 }
