@@ -13,7 +13,7 @@ struct TreeNode {
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
 };
 
-
+/*递归*/
 void inOrderTraverse(TreeNode* root)
 {
     if( root )
@@ -23,6 +23,30 @@ void inOrderTraverse(TreeNode* root)
         inOrderTraverse(root->right);
     }
 
+}
+/*非递归*/
+void inOrderTraverse(TreeNode* root)
+{
+    if (!root)
+        return;
+    stack<TreeNode*> s_nodes;
+    TreeNode *p = root;
+    while (p || !s_nodes.empty())
+    {
+        while (p)
+        {
+            s_nodes.push(p);
+            p = p->left;///中序现将结点进栈保存
+        }///遍历到左下角尽头再出栈访问
+
+        if (!s_nodes.empty())
+        {
+            p = s_nodes.top();
+            s_nodes.pop();
+            printf(" %c ",p->val);
+            p=p->right;///遍历右孩子
+        }
+    }   
 }
 int main()
 {

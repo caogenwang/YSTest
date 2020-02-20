@@ -13,7 +13,7 @@ struct TreeNode {
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
 };
 
-
+/*递归*/
 void lastOrderTraverse(TreeNode* root)
 {
     if( root )
@@ -24,6 +24,33 @@ void lastOrderTraverse(TreeNode* root)
     }
 
 }
+
+/*非递归*/
+void lastOrderTraverse(TreeNode* root)
+{
+    if(!root)
+        return;
+    stack<TreeNode*> s_nodes;
+    TreeNode*p = root;
+    while (p || !s_nodes.empty())
+    {
+        while (p)
+        {
+            s_nodes.push(p);
+            p = p->left;
+        }
+        if (!s_nodes.empty())
+        {
+            p = s_nodes.top();
+            s_nodes.pop();
+            p = p->right;
+        }
+        
+        
+    }
+    
+}
+
 int main()
 {
     return 0;
