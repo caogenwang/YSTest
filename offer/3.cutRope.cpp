@@ -2,6 +2,7 @@
 #include <iostream>
 #include <stack>
 #include <map>
+#include <unordered_map>
 #include <list>
 #include <queue>
 using namespace std;
@@ -71,6 +72,53 @@ public:
         return backup[number];
     }
 };
+
+int climbstairs(int n)
+{
+    if (n < 1)
+        return 0;
+    if(n == 1)
+        return 1;
+    if(n == 2)
+        return 2;
+    static std::unordered_map<int,int> stairs;
+    std::unordered_map<int,int>::const_iterator the_stair = stairs.find(n);
+    
+    if(the_stair == stairs.end())
+    {
+        int result = climbstairs(n-1) + climbstairs(n-2);
+        stairs[n] = result;
+        return result;
+    }
+    else
+    {
+        return the_stair->second;
+    }
+}
+
+int climb(int n)
+{
+    if( n < 1){
+        return 0;
+    }
+    if(n == 1){
+        return 1;
+    }
+
+    if(n == 2){
+        return 2;
+    }
+    int result = 0;
+    int pre = 1;
+    int after = 2;
+    for (int i = 3; i < n + 1; i++)
+    {
+        int result = pre + after;
+        pre = after;
+        after = result;
+    }
+    return result;
+}
 
 int main(int argc,char**argv)
 {
