@@ -11,7 +11,7 @@ using namespace std;
 
 class Solution {
 public:
-    int minDistance(string word1, string word2) {
+    int minDistance(string word1, string word2) {//从一个字符串变到另一个字符串需要的最短距离
         int m = word1.size();
         int n = word2.size();
         vector<vector<int>> memo(m,vector<int>(n));
