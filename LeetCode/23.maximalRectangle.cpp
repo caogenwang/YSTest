@@ -55,7 +55,7 @@ public:
     {
         int res = 0;
         stack<int> s;
-        for (int i = 0; i < height.size(); j++)
+        for (int i = 0; i < height.size(); i++)
         {
             if(s.empty() || height[s.top()] <= height[i])
                 s.push(i);
