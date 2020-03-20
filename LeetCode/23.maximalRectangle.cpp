@@ -23,7 +23,7 @@ public:
             {
                 if(j < n)
                 {
-                    height[j] = matrix[i][j] == '1' ? height[j] + 1 : 0;
+                    height[j] = matrix[i][j] == 1 ? height[j] + 1 : 0;
                 }
                 while (!s.empty() && height[s.top()] >= height[j]) {
                     int cur = s.top(); s.pop();
@@ -36,7 +36,42 @@ public:
     }
 };
 
-int main()
+class Solution2{
+public:
+    int maximalRectangle(vector<vector<int> > &matrix)
+    {
+        int res = 0;
+        vector<int> height;
+        for(int i=0;i < matrix.size();i++)
+        {
+            for (int j = 0; j < matrix[i].size(); j++)
+            {
+                height[j] = matrix[i][j] == 1 ?(height[j]+1):0;
+            }
+            res = max(res,largestRectangleArea(height));
+        }
+    }
+    int largestRectangleArea(vector<int>& height)
+    {
+        int res = 0;
+        stack<int> s;
+        for (int i = 0; i < height.size(); j++)
+        {
+            if(s.empty() || height[s.top()] <= height[i])
+                s.push(i);
+            else
+            {
+                int tmp = s.top();
+                s.pop();
+                res = max(res,height[tmp]*(s.empty()?i:(i - s.top() - 1)));
+                --i;
+            }
+        }
+        return res;
+    }
+};
+
+int main(int argc,char**argv)
 {
     vector<vector<int> > matrix ={
         {1,0,1,0,0},
