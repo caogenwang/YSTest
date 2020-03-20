@@ -12,7 +12,7 @@ using namespace std;
 //给出一个只包含0和1的二维矩阵，找出最大的全部元素都是1的长方形区域，返回该区域的面积。
 class Solution {
 public:
-    int maximalRectangle(vector<vector<char> > &matrix) {
+    int maximalRectangle(vector<vector<int> > &matrix) {
         if (matrix.empty() || matrix[0].empty()) return 0;
         int res = 0, m = matrix.size(), n = matrix[0].size();
         vector<int> height(n + 1,0);
@@ -44,7 +44,8 @@ int main()
         {1,1,1,1,1},
         {1,0,0,1,0}
     };
+    vector<vector<int> > &mat = matrix;
     Solution s;
-    s.maximalRectangle(matrix);
+    s.maximalRectangle(mat);
     return 0;
 }
