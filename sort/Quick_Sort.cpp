@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include "display.h"
 int partion(int*arr, int left, int right) {
          //选取中轴元素
          int pivot = arr[left];
@@ -20,7 +21,8 @@ int partion(int*arr, int left, int right) {
          arr[left] = arr[j];
          // 使中轴元素处于有序的位置
          arr[j] = pivot;
-         return j;
+        display(arr,10);
+        return j;
 }
 
 int *quickSort(int *arr, int left, int right) {
