@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-int partition(int*arr, int left, int right) {
+int partion(int*arr, int left, int right) {
          //选取中轴元素
          int pivot = arr[left];
          int i = left + 1;
@@ -26,7 +26,7 @@ int partition(int*arr, int left, int right) {
 int *quickSort(int *arr, int left, int right) {
          if (left < right) {
              //获取中轴元素所处的位置
-             int mid = partition(arr, left, right);
+             int mid = partion(arr, left, right);
              //进行分割
              arr = quickSort(arr, left, mid - 1);
              arr = quickSort(arr, mid + 1, right);
