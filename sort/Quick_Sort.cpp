@@ -7,9 +7,9 @@ int partion(int*arr, int left, int right) {
          int i = left + 1;
          int j = right;
          while (true) {
-             // 向右找到第一个小于等于 pivot 的元素位置
+             // 向右找到第一个大于等于 pivot 的元素位置
              while (i <= j && arr[i] <= pivot) i++;
-             // 向左找到第一个大于等于 pivot 的元素位置
+             // 向左找到第一个小于等于 pivot 的元素位置
              while(i <= j && arr[j] >= pivot ) j--;
              if(i >= j)
                  break;
@@ -17,11 +17,13 @@ int partion(int*arr, int left, int right) {
              int temp = arr[i];
              arr[i] = arr[j];
              arr[j] = temp;
+             display(arr,10);
          }
          arr[left] = arr[j];
          // 使中轴元素处于有序的位置
          arr[j] = pivot;
-        display(arr,10);
+         printf("***\n");
+         display(arr,10);
         return j;
 }
 
