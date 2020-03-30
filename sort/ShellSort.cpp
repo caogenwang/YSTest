@@ -31,7 +31,6 @@ void group_sort(int *a, int n, int i,int gap)
 void shellsort(int *array,int length)
 {
     int gap = length/2;
-    int temp = 0;
     while(gap>0){
         for (int i = 0; i < gap; i++)
         {   
