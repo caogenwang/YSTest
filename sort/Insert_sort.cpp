@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-
+#include "display.h"
 /*
 插入排序的基本思想是：每步将一个待排序的记录，
 按其关键码值的大小插入前面已经排序的文件中适当位置上，直到全部插入完为止
@@ -20,8 +20,8 @@ int main(int argc,char**argv)
 
     for (int j = 1; j < length; j++)
     {
-        int i = j-1;
         int temp = test[j];
+        int i = j-1;
         while (i>-1 && temp < test[i])
         {
             test[i+1] = test[i];
@@ -29,6 +29,7 @@ int main(int argc,char**argv)
             count ++;
         }
         test[i+1] = temp;
+        display(test,10);
     }
     
     printf("The result array:\n");
