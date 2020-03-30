@@ -1,6 +1,11 @@
 #include <stdlib.h>
 #include <stdio.h>
-
+#include "display.h"
+/*
+希尔排序是把记录按下标的一定增量分组，对每组使用直接插入排序算法排序；随着增量逐渐减少，
+每组包含的关键词越来越多，当增量减至1时，整个文件恰被分成一组，算法便终止
+*/
+int count = 0;
 void group_sort(int *a, int n, int i,int gap)
 {
     int j;
@@ -16,6 +21,7 @@ void group_sort(int *a, int n, int i,int gap)
             {
                 a[k + gap] = a[k];
                 k -= gap;
+                count++;
             }
             a[k + gap] = tmp;
         }
@@ -54,5 +60,6 @@ int main(int argc,char**argv)
         printf("%d ",test[i]);
     }
     printf("\n");
+    printf("count:%d\n",count);
     return 0;
 }
