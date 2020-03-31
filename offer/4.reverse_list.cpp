@@ -25,8 +25,6 @@ List *Dreverse(List *head)
 {
     if (head == nullptr)
         return head;
-    if (head == nullptr)
-        return head;
     List *p,*q,*t;
     p = head;
     while (p != nullptr)
@@ -94,3 +92,20 @@ List* NthFromEnd(List* head, int k)
     return after;
 }
 
+List *Dreverse(List *head)
+{
+    if(head == nullptr)
+        return head;
+    List *pre,*pointer,*temp;
+    pre = nullptr;
+    pointer = head;
+    while (pointer != nullptr)
+    {
+        temp = pointer->next;
+        pointer->next = pre;
+        pointer->pre = temp;
+        pre = pointer;
+        pointer = temp;
+    }
+    return pre;
+}
