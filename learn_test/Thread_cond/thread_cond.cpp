@@ -85,14 +85,9 @@ int main(void)
         pthread_mutex_unlock(&mtx); //解锁
 
         sleep(1);
-
-
-
-
-        
     }
 
-    printf("thread 1 wanna end the line.So cancel thread 2./n");
+    printf("thread 1 wanna end the line.So cancel thread 2.\n");
 
     /*
     * 关于pthread_cancel, 有一点额外的说明,
