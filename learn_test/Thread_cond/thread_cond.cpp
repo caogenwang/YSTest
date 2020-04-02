@@ -98,6 +98,6 @@ int main(void)
     pthread_cancel(tid);
     pthread_join(tid, NULL);
 
-    printf("All done -- exiting/n");
+    printf("All done -- exiting\n");
     return 0;   
 }
