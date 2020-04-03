@@ -1,0 +1,61 @@
+1. string(字符串)
+    string是二进制安全的，意思是redis的string包含任数据，比如jpg序列化数据
+    最大支持512M
+2. hash 哈希类似于map
+3. list列表，底层实现是链表，可以在前后插入数据
+   arrayList 数组
+   linklist  链表
+4. set 集合，无序，无重复
+5. Zset(sorted set) 有序
+
+
+1. key:
+    (1) 相同的k覆盖
+    (2) move key db
+    (3) expire key time
+    (4) ttl key
+    (5) type key
+2. string 单值单Value
+    (1) APPEND key 单值单Value
+    (2) Incr/decr/incrb/decby
+    (3)getrange/setrange
+    (4)setex/setnx
+    (5)mset/mget/msetnx 
+3.list
+    (1)lpush/rpush/lrange
+    (2)lpop/rpop
+    (3)lindex
+    (4)llen
+    (5)lrem key删除N个值
+    (6)ltrim key
+    (7)rpoplpush 一个表赋给另一个表
+    (8) lset key index value 给某个位置赋值
+    (9)linsert key before/after
+    如果键存在，新增内容
+    头尾插入数据效率很高
+4. set
+    单值多value
+    (1) sadd SMEMBERS SISMEMBER 
+    (2) scard
+    (3) srem
+    (4) SRANDMEMBER 随机出几个数
+    (5) spop key 
+    (6) smove 
+    (7) sdiff 差集
+    (8) sinter 交集
+    (7) sunion 并集
+5. hash
+    hset/hget/hmset/hmget
+    hdel
+    hexists
+    hkeys/hvals
+    hincrby/hincrbyfloat
+6.Zset
+    (1) zadd/zrange
+    (2) zrangebyscore 
+    (3) zrem
+    (4) zcard/zrank/zcount/zscore
+    (5) zrevrange
+    (5) zrevrangebyscore
+
+
