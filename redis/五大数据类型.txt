@@ -59,4 +59,18 @@
     (5) zrevrangebyscore
 
 
-redis:RDB
+2. 事物：转账
+cas乐观锁和悲观锁，在一个队列中，一次性，顺序性，排他性的执行一系列命令。
+
+            case1   正常执行
+            case2   放弃事务
+怎么玩？     case3   全体连坐
+            case4   冤头债主
+            case5   watch监控
+
+命令：
+    DISCARD：
+    EXEC：
+    MULTI：
+    UNWATCH：
+    WATCH：
