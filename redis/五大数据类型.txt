@@ -96,3 +96,56 @@ cas乐观锁和悲观锁，在一个队列中，一次性，顺序性，排他�
     
     slave原理：
     首次是全量复制，之后是增量复制。
+
+一、string
+1. 选择数据类型：
+        i.  使用json，需要使用序列化和反序列化
+        ii. 使用MGET和MSET进行批量操作
+2. 分布式锁
+    高并发情况。
+    线程1 SETNX procduct:1001 true   //返回1表示加锁成功
+    线程2 SETNX procduct:1001 true   //返回0表示加锁成功
+    使用完成功后删除这个key--> procduct:1001
+    DEL procduct:1001
+3. 计数器
+    保证原子性，类似于阅读量，redis是单线程，依次执行命令。
+    INCR article:readcount:[id]
+    GET article:readcount:[id]
+4. web集群的session
+    SpringSession+Redis实现集群会话共享。
+    https://blog.csdn.net/weixin_42500670/article/details/81459955。
+5. 分布式系统全局序列号
+    INCRBY orderId 1000   //redis 批量生成序列号
+
+二、Hash:
+    相当于map，k-v形式。
+1. 对象缓存
+    HMSET user field1 value field2 value
+    HMGET user field1 field2
+2. 电商购物车
+    1）用户ID为key
+    2）商品的ID为filed
+    3）商量为value
+
+    购物车操作：
+    1) 添加商品->hset cart:1001 10088 1
+    2) 增加数量->hincrby cart:1001 10088 1
+    3) 商品总数->hlen cart:1001
+    4) 删除商品->hdel cart:1001 10088
+    4) 获取购物车所有的商品->hgetall cart:1001
+
+    优点：1）同类数据归类整个储存，方便数据管理
+         2）想不string操作消耗内存与cpu更小
+         3）相比string储存更节省空间
+    缺点：1）过期功能不能不能使用在field，只能用在key上
+         2）Redis集群架构下不适合大规模使用
+            https://www.cnblogs.com/wanghaokun/p/10366689.html
+三、List
+    1. 常用的数据结构
+        1) Stack = lpush + lpop ->FILO
+        2) Queue = lpush + rpop ->FIFO
+        3) 消息队列阻塞 = LPUSH + BRPOP
+    2. 微博和微信公号消息流
+        1) lpush 
+
+
