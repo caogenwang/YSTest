@@ -172,3 +172,18 @@ cas乐观锁和悲观锁，在一个队列中，一次性，顺序性，排他�
         SINTER
         SUNION
         SDIFF
+    4. 关注模型，共同关注模型
+
+五、zset
+    Zset集合操作实现排行
+    1）点击新闻
+        ZINCRBY hotNews:20190819 1 守护香港
+    2）排行榜
+        zrevrange hotNews:20190819 0 9 
+    3) 七日的排行榜
+        ZUNIONSTORE 
+    4） zrevrange
+
+六、 分布式锁
+    1. 互联网秒杀：
+
