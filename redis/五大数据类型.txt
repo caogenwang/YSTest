@@ -97,7 +97,7 @@ cas乐观锁和悲观锁，在一个队列中，一次性，顺序性，排他�
     slave原理：
     首次是全量复制，之后是增量复制。
 
-一、string
+一、string应用场景
 1. 选择数据类型：
         i.  使用json，需要使用序列化和反序列化
         ii. 使用MGET和MSET进行批量操作
@@ -117,7 +117,7 @@ cas乐观锁和悲观锁，在一个队列中，一次性，顺序性，排他�
 5. 分布式系统全局序列号
     INCRBY orderId 1000   //redis 批量生成序列号
 
-二、Hash:
+二、Hash应用场景
     相当于map，k-v形式。
 1. 对象缓存
     HMSET user field1 value field2 value
@@ -140,12 +140,17 @@ cas乐观锁和悲观锁，在一个队列中，一次性，顺序性，排他�
     缺点：1）过期功能不能不能使用在field，只能用在key上
          2）Redis集群架构下不适合大规模使用
             https://www.cnblogs.com/wanghaokun/p/10366689.html
-三、List
+三、List应用场景
     1. 常用的数据结构
         1) Stack = lpush + lpop ->FILO
         2) Queue = lpush + rpop ->FIFO
         3) 消息队列阻塞 = LPUSH + BRPOP
     2. 微博和微信公号消息流
         1) lpush 
+        2）lpush
+        3）lrange
+
+四、Set应用场景
+    1. 
 
 
