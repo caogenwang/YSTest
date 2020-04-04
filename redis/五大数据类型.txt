@@ -151,6 +151,24 @@ cas乐观锁和悲观锁，在一个队列中，一次性，顺序性，排他�
         3）lrange
 
 四、Set应用场景
-    1. 
-
-
+    1. 微信抽检小程序
+        1）点击参与抽奖加入集合
+        SADD key (userid)
+        2)查看参与抽奖的所有用户
+        SMEMBERS key
+        3) SRANDMEMBER key [count] / spop key [count]
+    2. 微信微博点赞，收藏，标签
+        1）点赞
+            SADD like:{消息ID} {用户id}
+        2)取消点赞
+            SREM like:{消息ID} {用户id}
+        3）检查用户是否点过赞
+            SISMEMBER like:{消息ID} {用户id}
+        4）获取点赞用户的列表
+            SMEMBERS like:{消息ID}
+        5）获取点赞的用户数
+            scard
+    3. 集合操作，交、并、差
+        SINTER
+        SUNION
+        SDIFF
