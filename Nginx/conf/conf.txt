@@ -93,5 +93,6 @@
         2. 两台nginx服务器，主备nginx服务器+keepalive+虚拟ip
             yum install keepalive 
 
-
+    (6)防盗链
+        
 
