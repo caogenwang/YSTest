@@ -1,0 +1,97 @@
+1. 全局块：全局设置的指令
+    worker_processes  1;处理并发的数量
+2. 影响nginx服务器和用户网络的连接部分
+    
+    events {
+        use epoll;#Linux最常用支持大并发的事件触发机制
+        worker_connections  1024;
+    }
+3. http块：http全局快，server块
+
+4. nginx的配置实例
+    （1）反向代理-1
+        1. 打开浏览器，在浏览器地址栏输入url，然后跳转到某个页面中。
+        2. 主备工作
+            （1）安装服务器
+        3.分析访问过程：配置域名和ip的映射，需要在windows中host中配置域名和ip地址的映射。
+        4. nginx请求转发配置
+        
+         location / {  
+            proxy_pass   http://192.168.2.189:8081;   
+        }   
+    （2）反向代理-2
+
+
+        1. 实现同一个端口，访问不同的路径
+            （1）主备两个服务器
+        2. 
+            新增一个监听服务端口
+            server {
+                    listen       9001;
+                    server_name  192.168.17.192;
+
+                    location ~/edu/ {
+                        proxy_pass http://192.168.2.189:8080
+                    }
+
+                    location ~/vod/ {
+                        proxy_pass http://192.168.2.189:8081
+                    }
+            }
+        3. Linux需要开发对外访问的端口号。
+    
+    （3）负载均衡
+
+        http{
+
+            upstream myserver{  #在http中添加
+                server 192.168.17.129:8080;
+                server 192.168.17.129.8081;
+            }
+
+            server{#在server添加
+
+
+                location / {
+
+                        proxy_pass http://myserver
+                    }
+            }
+        }
+        负载均衡策略：
+            1. 轮询：默认，按照时间顺序依次轮询
+
+            2. weight
+                upstream myserver{  #在http中添加
+                server 192.168.17.129:8080 weight = 10;
+                server 192.168.17.129.8081 weight = 10;
+            }
+            3. ip_hash:解决session共享的问题,固定访问后端服务器
+            upstream myserver{  #在http中添加
+                            ip_hash;
+                            server 192.168.17.129:8080;
+                            server 192.168.17.129.8081;
+                        }
+            4. fair根据响应时间
+                upstream myserver{  #在http中添加
+                            server 192.168.17.129:8080;
+                            server 192.168.17.129.8081;
+                            fair;
+                        }
+    (4) 动静分离：动态请求和动态请求分离
+        location /www/ {
+            root   /data/;
+            index  index.html index.htm;
+        }
+        location /image/ {
+            root   /data/;
+            autoindex on;
+        }
+    (5)高可用的集群
+        1. 什么是nginx的高可用？
+            nginx成为访问瓶颈，如果宕机，所有请求就完蛋了。
+        2. 两台nginx服务器，主备nginx服务器+keepalive+虚拟ip
+            yum install keepalive 
+
+
+
