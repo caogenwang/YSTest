@@ -72,7 +72,7 @@ struct __attribute__ ((__packed__)) sdshdr64 {
     unsigned char flags; /* 3 lsb of type, 5 unused bits */
     char buf[];
 };
-// 使用#把宏参数变为一个字符串,用##把两个宏参数贴合在一起
+
 #define SDS_TYPE_5  0
 #define SDS_TYPE_8  1
 #define SDS_TYPE_16 2
@@ -80,6 +80,7 @@ struct __attribute__ ((__packed__)) sdshdr64 {
 #define SDS_TYPE_64 4
 #define SDS_TYPE_MASK 7
 #define SDS_TYPE_BITS 3
+// 使用#把宏参数变为一个字符串,用##把两个宏参数贴合在一起
 #define SDS_HDR_VAR(T,s) struct sdshdr##T *sh = (void*)((s)-(sizeof(struct sdshdr##T)));//
 #define SDS_HDR(T,s) ((struct sdshdr##T *)((s)-(sizeof(struct sdshdr##T))))
 #define SDS_TYPE_5_LEN(f) ((f)>>SDS_TYPE_BITS) //右移三位
