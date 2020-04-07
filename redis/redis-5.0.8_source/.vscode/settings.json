@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "endianconv.h": "c",
+        "iterator": "c"
+    }
+}
