@@ -93,17 +93,17 @@ sds sdsnewlen(const void *init, size_t initlen) {
     /* Empty strings are usually created in order to append. Use type 8
      * since type 5 is not good at this. */
     if (type == SDS_TYPE_5 && initlen == 0) type = SDS_TYPE_8;
-    int hdrlen = sdsHdrSize(type);
+    int hdrlen = sdsHdrSize(type);//结构体前半部分的长度
     unsigned char *fp; /* flags pointer. */
 
-    sh = s_malloc(hdrlen+initlen+1);
+    sh = s_malloc(hdrlen+initlen+1);//申请空间的大小，三部分，结构体前半部分+数据部分+‘\0’
     if (init==SDS_NOINIT)
         init = NULL;
     else if (!init)
         memset(sh, 0, hdrlen+initlen+1);
-    if (sh == NULL) return NULL;
-    s = (char*)sh+hdrlen;
-    fp = ((unsigned char*)s)-1;
+    if (sh == NULL) return NULL;//申请失败
+    s = (char*)sh+hdrlen;//s指向数据部分
+    fp = ((unsigned char*)s)-1;//fp指向数据前一部分
     switch(type) {
         case SDS_TYPE_5: {
             *fp = type | (initlen << SDS_TYPE_BITS);
@@ -597,6 +597,7 @@ sds sdscatprintf(sds s, const char *fmt, ...) {
  * %U - 64 bit unsigned integer (unsigned long long, uint64_t)
  * %% - Verbatim "%" character.
  */
+
 sds sdscatfmt(sds s, char const *fmt, ...) {
     size_t initlen = sdslen(s);
     const char *f = fmt;
@@ -827,17 +828,21 @@ sds *sdssplitlen(const char *s, ssize_t len, const char *sep, int seplen, int *c
         *count = 0;
         return tokens;
     }
+    //从前往后扫描，到最后一个能匹配分隔符字符串的位置len-seplen 
     for (j = 0; j < (len-(seplen-1)); j++) {
         /* make sure there is room for the next element and the final one */
+        //如果当前字符串数组数量少于当前已存在数组+2个的时候，动态添加  
         if (slots < elements+2) {
             sds *newtokens;
 
             slots *= 2;
             newtokens = s_realloc(tokens,sizeof(sds)*slots);
+            //如果内存此时溢出，goto语句free释放内存，终于看到了goto语句的派上用处了
             if (newtokens == NULL) goto cleanup;
             tokens = newtokens;
         }
         /* search the separator */
+        //分成单字符比较和多字符比较匹配
         if ((seplen == 1 && *(s+j) == sep[0]) || (memcmp(s+j,sep,seplen) == 0)) {
             tokens[elements] = sdsnewlen(s+start,j-start);
             if (tokens[elements] == NULL) goto cleanup;

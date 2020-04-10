@@ -44,6 +44,9 @@ typedef char *sds;
 
 /* Note: sdshdr5 is never used, we just access the flags byte directly.
  * However is here to document the layout of type 5 SDS strings. */
+/*加入  “__attribute__ ((__packed__))” 的效果，则在于避免编译器 “自作聪明”。
+告诉编译器，我们这里不需要补全,也就是不去做补齐，保持数据结构，不会出现错位现象
+*/
 struct __attribute__ ((__packed__)) sdshdr5 {
     unsigned char flags; /* 3 lsb of type, and 5 msb of string length */
     char buf[];
@@ -63,7 +66,7 @@ struct __attribute__ ((__packed__)) sdshdr16 {
 struct __attribute__ ((__packed__)) sdshdr32 {
     uint32_t len; /* used */
     uint32_t alloc; /* excluding the header and null terminator */
-    unsigned char flags; /* 3 lsb of type, 5 unused bits */
+    unsigned char flags; /* 3 lsb of type, 5 unused bits ，一个字节*/
     char buf[];
 };
 struct __attribute__ ((__packed__)) sdshdr64 {
@@ -72,7 +75,7 @@ struct __attribute__ ((__packed__)) sdshdr64 {
     unsigned char flags; /* 3 lsb of type, 5 unused bits */
     char buf[];
 };
-
+// 使用#把宏参数变为一个字符串,用##把两个宏参数贴合在一起
 #define SDS_TYPE_5  0
 #define SDS_TYPE_8  1
 #define SDS_TYPE_16 2
@@ -80,18 +83,17 @@ struct __attribute__ ((__packed__)) sdshdr64 {
 #define SDS_TYPE_64 4
 #define SDS_TYPE_MASK 7
 #define SDS_TYPE_BITS 3
-// 使用#把宏参数变为一个字符串,用##把两个宏参数贴合在一起
-#define SDS_HDR_VAR(T,s) struct sdshdr##T *sh = (void*)((s)-(sizeof(struct sdshdr##T)));//
+#define SDS_HDR_VAR(T,s) struct sdshdr##T *sh = (void*)((s)-(sizeof(struct sdshdr##T)));
 #define SDS_HDR(T,s) ((struct sdshdr##T *)((s)-(sizeof(struct sdshdr##T))))
 #define SDS_TYPE_5_LEN(f) ((f)>>SDS_TYPE_BITS) //右移三位
 
 static inline size_t sdslen(const sds s) {//看看如何获取长度的？
     unsigned char flags = s[-1];
-    switch(flags&SDS_TYPE_MASK) {
+    switch(flags&SDS_TYPE_MASK) {//00000111获取type，后三位
         case SDS_TYPE_5:
-            return SDS_TYPE_5_LEN(flags);
+            return SDS_TYPE_5_LEN(flags);//type 5的情况下高5位位长度
         case SDS_TYPE_8:
-            return SDS_HDR(8,s)->len;
+            return SDS_HDR(8,s)->len;//获取对应类型的长度
         case SDS_TYPE_16:
             return SDS_HDR(16,s)->len;
         case SDS_TYPE_32:
@@ -101,8 +103,8 @@ static inline size_t sdslen(const sds s) {//看看如何获取长度的？
     }
     return 0;
 }
-
-static inline size_t sdsavail(const sds s) {
+/* 获取当前字符串中还能存放多少数据 */
+static inline size_t sdsavail(const sds s) {//s是指向结构体重buf的s往前一个地址是flags
     unsigned char flags = s[-1];
     switch(flags&SDS_TYPE_MASK) {
         case SDS_TYPE_5: {
@@ -127,7 +129,7 @@ static inline size_t sdsavail(const sds s) {
     }
     return 0;
 }
-
+/*设置字符串的长度*/
 static inline void sdssetlen(sds s, size_t newlen) {
     unsigned char flags = s[-1];
     switch(flags&SDS_TYPE_MASK) {

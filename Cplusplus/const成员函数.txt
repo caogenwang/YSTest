@@ -1,0 +1,142 @@
+1. 类的成员函数后面加 const，表明这个函数不会对这个类对象的数据成员（准确地说是非静态数据成员）作任何改变。
+
+在设计类的时候，一个原则就是对于不改变数据成员的成员函数都要在后面加 const，
+而对于改变数据成员的成员函数不能加 const。
+所以 const 关键字对成员函数的行为作了更加明确的限定：
+
+（1）有 const 修饰的成员函数（指 const 放在函数参数表的后面，而不是在函数前面或者参数表内），
+    只能读取数据成员，不能改变数据成员；没有 const 修饰的成员函数，对数据成员则是可读可写的。
+（2）除此之外，在类的成员函数后面加 const 还有什么好处呢？那就是常量（即 const）
+    对象可以调用 const 成员函数，而不能调用非const修饰的函数。
+
+    #include <stdio.h>
+#include <stdlib.h>
+#include <iostream>
+using namespace std;
+class A
+{
+public:
+    void f()
+    {
+        cout<<"non const"<<endl;
+    }
+    void f() const
+    {
+        cout<<" const"<<endl;
+    }
+};
+ 
+int main(int argc, char **argv)
+{
+    A a;
+    a.f();
+    const A &b=a;
+    b.f();
+    const A *c=&a;
+    c->f();
+    A *const d=&a;
+    d->f();
+    A *const e=d;
+    e->f();
+    const A *f=c;
+    f->f();
+    return 0;
+}
+
+2. C++的const类型成员函数（解释为什么非const成员函数不能访问const类对象的数据成员）
+    在C++中只有被声明为const的成员函数才能被一个const类对象调用。
+
+    如果要声明一个const类型的类成员函数，只需要在成员函数列表后加上关键字const， 例如：
+
+    class Screen {
+        public:
+            char get() const;
+    };
+
+    在类体之外定义const成员函数时，还必须加上const关键字，例如：
+
+    char Screen :: get() const {
+        return _screen[_cursor];
+    } 
+
+    若将成员函数声明为const，则不允许通过其修改类的数据成员。 值得注意的是，
+    如果类中存在指针类型的数据成员即便是const函数只能保证不修改该指针的值，并不能保证不修改指针指向的对象。
+    例如：
+        class Name {
+                public:
+                void setName(const string &s) const;
+                private:
+                    char *m_sName;
+                };
+                void setName(const string &s) const {
+                    m_sName = s.c_str();      // 错误！不能修改m_sName;
+                    for (int i = 0; i < s.size(); ++i) 
+                        m_sName[i] = s[i];    // 不好的风格，但不是错误的
+                }
+
+3. const成员函数可以被对应的具有相同形参列表的非const成员函数重载，例如：
+    class Screen {
+            public:
+            char get(int x,int y);
+            char get(int x,int y) const;
+        };
+
+    int main()
+    {
+        const Screen cs;
+        Screen cc2; 
+        char ch = cs.get(0, 0);  // 调用const成员函数  
+        ch = cc2.get(0, 0);     // 调用非const成员函数 
+    }
+
+    在这种情况下，类对象的常量性决定调用哪一个函数： 
+
+    const成员函数可以访问非const对象的非const数据成员，const数据成员，也可以访问const对象内的所有数据成员；
+    非const成员函数只可以访问非const对象的任意的数据成员（不能访问const对象的任意数据成员）；
+    （上述原因可详见C++Primer（5th）231页。 在默认情况下，this的类型是指向类类型非常量版本的常量指针，例如 Screen类中，this类型为 Screen *cosnt。当在成员函数的后面加上const关键字时，隐式的将this指针修改为 const Screen *const 即指向类类型常量版本的常量指针。根据初始化原则，我们不能将一个常量指针赋值给一个非常量指针）
+    作为一种良好的编程风格，在声明一个成员函数时，若该成员函数并不对数据成员进行修改， 
+    应尽可能将该成员函数声明为const成员函数.
+
+4. const修饰的是谁？
+    const成员函数的写法有两种
+
+　　1、void fun(int a，int b) const{}
+
+　　2、void const fun(int a,int b){}
+
+这两种写法的本质是：void fun (const 类 *this, int a,int b);
+
+const修饰的不是形参a和b；const修饰的是属性this->a和this->b。与const所写的位置无关。
+
+为什么？
+
+因为c++对类的this指针做了隐藏，本质上，const指针修饰的是被隐藏的this指针所指向的内存空间，修饰的是this指针。
+
+ 
+
+总结：
+
+1）const成员函数可以访问非const对象的非const数据成员、const数据成员，也可以访问const对象内的所有数据成员；
+
+2）非const成员函数可以访问非const对象的非const数据成员、const数据成员，但不可以访问const对象的任意数据成员；
+
+3）作为一种良好的编程风格，在声明一个成员函数时，若该成员函数并不对数据成员进行修改操作，应尽可能将该成员函数声明为const 成员函数。
+
+4）如果只有const成员函数，非const对象是可以调用const成员函数的。当const版本和非const版本的成员函数同时出现时，非const对象调用非const成员函数。
+
+　　
+
+补充：
+
+> 类中的const成员变量都要放在初始化列表之中进行
+　　> const数据成员
+　　> 引用数据成员
+　　> 对象数据成员（内置类）
+
+ 
+
+　　const成员函数
+　　> void print() const => const 类名 * const this
+　　> 在其内部是不能修改数据成员
+　　> 只能调用const成员函数，不能调用非const成员函数
+　　> const对象只能调用const成员函数,必须要提供一个const版本的成员函数
