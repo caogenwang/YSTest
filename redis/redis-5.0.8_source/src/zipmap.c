@@ -60,7 +60,7 @@
  * is set to "bar", and later "foo" will be set to "hi", it will have a
  * free byte to use if the value will enlarge again later, or even in
  * order to add a key/value pair if it fits.
- *
+ *free是一个字符串在修改后剩余的空间，比如foo->bar修改为foo->hi,则free是1，代表剩余了一个字节
  * <free> is always an unsigned 8 bit number, because if after an
  * update operation there are more than a few free bytes, the zipmap will be
  * reallocated to make sure it is as small as possible.
@@ -170,7 +170,7 @@ static unsigned long zipmapRequiredLength(unsigned int klen, unsigned int vlen) 
 
     l = klen+vlen+3;
     if (klen >= ZIPMAP_BIGLEN) l += 4;
-    if (vlen >= ZIPMAP_BIGLEN) l += 4;
+    if (vlen >= ZIPMAP_BIGLEN) l += 4;//超过254就得多加四个字节来表示长度
     return l;
 }
 
@@ -214,29 +214,29 @@ unsigned char *zipmapSet(unsigned char *zm, unsigned char *key, unsigned int kle
     unsigned int empty, vempty;
     unsigned char *p;
 
-    freelen = reqlen;
+    freelen = reqlen;//开始剩余的free就是需要的字节长度
     if (update) *update = 0;
     p = zipmapLookupRaw(zm,key,klen,&zmlen);
-    if (p == NULL) {
+    if (p == NULL) {//没找到，直接计算长度插入
         /* Key not found: enlarge */
         zm = zipmapResize(zm, zmlen+reqlen);
-        p = zm+zmlen-1;
-        zmlen = zmlen+reqlen;
+        p = zm+zmlen-1;//指向需要插入的末尾
+        zmlen = zmlen+reqlen;//更新map长度
 
         /* Increase zipmap length (this is an insert) */
-        if (zm[0] < ZIPMAP_BIGLEN) zm[0]++;
+        if (zm[0] < ZIPMAP_BIGLEN) zm[0]++;//map的个数增加
     } else {
         /* Key found. Is there enough space for the new value? */
         /* Compute the total length: */
-        if (update) *update = 1;
+        if (update) *update = 1;//找到只后查看剩余的空间是否够
         freelen = zipmapRawEntryLength(p);
         if (freelen < reqlen) {
             /* Store the offset of this key within the current zipmap, so
              * it can be resized. Then, move the tail backwards so this
              * pair fits at the current position. */
-            offset = p-zm;
-            zm = zipmapResize(zm, zmlen-freelen+reqlen);
-            p = zm+offset;
+            offset = p-zm;//插入位置相对于起点的偏移
+            zm = zipmapResize(zm, zmlen-freelen+reqlen);//zm重新扩容
+            p = zm+offset;//重新指向插入的位置
 
             /* The +1 in the number of bytes to be moved is caused by the
              * end-of-zipmap byte. Note: the *original* zmlen is used. */

@@ -115,10 +115,10 @@
  * the strings "2" and "5". It is composed of 15 bytes, that we visually
  * split into sections:
  *
- *  [0f 00 00 00] [0c 00 00 00] [02 00] [00 f3] [02 f6] [ff]
+ *  [0f 00 00 00] [0c 00 00 00] [02 00] [00 f3] [02 f6] [ff] //ziplist的结构
  *        |             |          |       |       |     |
  *     zlbytes        zltail    entries   "2"     "5"   end
- *
+ *   这个list有多少字节 最后一个条目的位置 有多少个条目录  
  * The first 4 bytes represent the number 15, that is the number of bytes
  * the whole ziplist is composed of. The second 4 bytes are the offset
  * at which the last ziplist entry is found, that is 12, in fact the
@@ -576,8 +576,8 @@ void zipEntry(unsigned char *p, zlentry *e) {
 
 /* Create a new empty ziplist. */
 unsigned char *ziplistNew(void) {
-    unsigned int bytes = ZIPLIST_HEADER_SIZE+ZIPLIST_END_SIZE;
-    unsigned char *zl = zmalloc(bytes);
+    unsigned int bytes = ZIPLIST_HEADER_SIZE+ZIPLIST_END_SIZE;//HEADER占用10个字节，END占用1个字节
+    unsigned char *zl = zmalloc(bytes);//开辟10个字节空间，zl是指向这个空间的指针
     ZIPLIST_BYTES(zl) = intrev32ifbe(bytes);
     ZIPLIST_TAIL_OFFSET(zl) = intrev32ifbe(ZIPLIST_HEADER_SIZE);
     ZIPLIST_LENGTH(zl) = 0;
@@ -684,7 +684,7 @@ unsigned char *__ziplistDelete(unsigned char *zl, unsigned char *p, unsigned int
     zipEntry(p, &first);
     for (i = 0; p[0] != ZIP_END && i < num; i++) {
         p += zipRawEntryLength(p);
-        deleted++;
+        deleted++;//计算要删除多少个
     }
 
     totlen = p-first.p; /* Bytes taken by the element(s) to delete. */
@@ -757,7 +757,7 @@ unsigned char *__ziplistInsert(unsigned char *zl, unsigned char *p, unsigned cha
     } else {
         unsigned char *ptail = ZIPLIST_ENTRY_TAIL(zl);
         if (ptail[0] != ZIP_END) {
-            prevlen = zipRawEntryLength(ptail);
+            prevlen = zipRawEntryLength(ptail);//计算前一个节点的长度
         }
     }
 
@@ -772,8 +772,8 @@ unsigned char *__ziplistInsert(unsigned char *zl, unsigned char *p, unsigned cha
     }
     /* We need space for both the length of the previous entry and
      * the length of the payload. */
-    reqlen += zipStorePrevEntryLength(NULL,prevlen);
-    reqlen += zipStoreEntryEncoding(NULL,encoding,slen);
+    reqlen += zipStorePrevEntryLength(NULL,prevlen);//前一个条目的长度
+    reqlen += zipStoreEntryEncoding(NULL,encoding,slen);//当前条目也就是payload需要的空间
 
     /* When the insert position is not equal to the tail, we need to
      * make sure that the next entry can hold this entry's length in
@@ -955,8 +955,8 @@ unsigned char *ziplistMerge(unsigned char **first, unsigned char **second) {
 
 unsigned char *ziplistPush(unsigned char *zl, unsigned char *s, unsigned int slen, int where) {
     unsigned char *p;
-    p = (where == ZIPLIST_HEAD) ? ZIPLIST_ENTRY_HEAD(zl) : ZIPLIST_ENTRY_END(zl);
-    return __ziplistInsert(zl,p,s,slen);
+    p = (where == ZIPLIST_HEAD) ? ZIPLIST_ENTRY_HEAD(zl) : ZIPLIST_ENTRY_END(zl);//判断是在头部还是尾部插入，
+    return __ziplistInsert(zl,p,s,slen);                                        //从而是p指向相应的位置，注意p相应的条目的卫视。
 }
 
 /* Returns an offset to use for iterating with ziplistNext. When the given
