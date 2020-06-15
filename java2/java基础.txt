@@ -1,0 +1,595 @@
+
+1. Java的基本数据类型：
+  （1）一共8中基本类型：
+        1）byte， 8位，有符号，byte 啊= 100；
+        2）short ，16位，short 是= 1000；
+        3）int ，32位，int a = 100000；
+        4）long,64位，0l
+        5）float，32位，0.0f
+        6）double，64位，float d1 = 123.4，不加f是double类型
+        7）boolean，布尔值
+        8）char，16位的Unicode字符，注意无符号
+  （2）引用类型：
+        1）在Java中，引用类型的变量非常类似于C/C++的指针。
+            引用类型指向一个对象，指向对象的变量是引用变量。
+        2）对象、数组都是引用数据类型。
+        3）所有引用类型的默认值都是null。
+        4）一个引用变量可以用来引用任何与之兼容的类型。
+  （3）常量类型：
+        常量在程序运行时是不能被修改的。在 Java 中使用 final 关键字来修饰常量。
+        例如，final double PI = 3.1415927;
+        1）和其他语言一样，Java的字符串常量也是包含在两个引号之间的字符序列。
+            "Hello World"
+            "two\nlines"
+            "\"This is in quotes\""
+        2）字符常量都可以包含任何Unicode字符。
+            char a = '\u0001';
+            String a = "\u0001";
+
+2.Java语言支持的变量类型有：
+    类变量：独立于方法之外的变量，用 static 修饰。
+    实例变量：独立于方法之外的变量，不过没有 static 修饰。
+    3）局部变量：类的方法中的变量。
+        局部变量声明在方法、构造方法或者语句块中；
+        局部变量在方法、构造方法、或者语句块被执行的时候创建，当它们执行完成后，变量将会被销毁；
+        访问修饰符不能用于局部变量；
+        局部变量只在声明它的方法、构造方法或者语句块中可见；
+        局部变量是在栈上分配的。
+        局部变量没有默认值，所以局部变量被声明后，必须经过初始化，才可以使用。
+
+3.Java Number & Math 类
+    然而，在实际开发过程中，我们经常会遇到需要使用对象，而不是内置数据类型的情形。
+    为了解决这个问题，Java 语言为每一个内置数据类型提供了对应的包装类。
+    所有的包装类（Integer、Long、Byte、Double、Float、Short）都是抽象类 Number 的子类。
+
+4. Java Character 类
+    Character 类用于对单个字符进行操作。
+    Character 类在对象中包装一个基本类型 char 的值.
+
+5. Java String 类
+    字符串广泛应用 在 Java 编程中，在 Java 中字符串属于对象，
+    Java 提供了 String 类来创建和操作字符串。字符串的包装类。
+
+6. Java StringBuffer 和 StringBuilder 类
+    当对字符串进行修改的时候，需要使用 StringBuffer 和 StringBuilder 类。
+    和 String 类不同的是，StringBuffer 和 StringBuilder 类的对象能够被
+    多次的修改，并且不产生新的未使用对象。
+    StringBuilder 类在 Java 5 中被提出，它和 StringBuffer 之间的最大不
+    同在于 StringBuilder 的方法不是线程安全的（不能同步访问）。
+    由于 StringBuilder 相较于 StringBuffer 有速度优势，所以多数情况下建
+    议使用 StringBuilder 类。然而在应用程序要求线程安全的情况下，则必须使用 
+    StringBuffer 类。
+
+7. Java 数组
+    （1）dataType[] arrayRefVar; 
+    （2）Arrays 类
+
+8. java.util 包提供了 Date 类
+    来封装当前的日期和时间。 Date 类提供两个构造函数来实例化 Date 对象。
+    第一个构造函数使用当前日期和时间来初始化对象。
+    Date( )
+    第二个构造函数接收一个参数，该参数是从1970年1月1日起的毫秒数。
+    Date(long millisec)
+
+9. Java 流(Stream)、文件(File)和IO
+
+
+10. Java 重写(Override)与重载(Overload)
+    c++中，子类继承父类，当子类中的方法，如果子类中有，则调子类，没有调用父类。
+    （1）方法的重写规则：
+        参数列表必须完全与被重写方法的相同。
+        返回类型与被重写方法的返回类型可以不相同，但是必须是父类返回值的派生类（java5 及更早版本返回类型要一样，java7 及更高版本可以不同）。
+        访问权限不能比父类中被重写的方法的访问权限更低。例如：如果父类的一个方法被声明为 public，那么在子类中重写该方法就不能声明为 protected。
+        父类的成员方法只能被它的子类重写。
+        声明为 final 的方法不能被重写。
+        声明为 static 的方法不能被重写，但是能够被再次声明。
+        子类和父类在同一个包中，那么子类可以重写父类所有方法，除了声明为 private 和 final 的方法。
+        子类和父类不在同一个包中，那么子类只能够重写父类的声明为 public 和 protected 的非 final 方法。
+        重写的方法能够抛出任何非强制异常，无论被重写的方法是否抛出异常。但是，重写的方法不能抛出新的强制性异常，或者比被重写方法声明的更广泛的强制性异常，反之则可以。
+        构造方法不能被重写。
+        如果不能继承一个方法，则不能重写这个方法。
+
+    （2）Super 关键字的使用
+            当需要在子类中调用父类的被重写方法时，要使用 super 关键字。
+
+    （3）重载(Overload)
+            重载(overloading) 是在一个类里面，方法名字相同，而参数不同。返回类型可以相同也可以不同。
+            每个重载的方法（或者构造函数）都必须有一个独一无二的参数类型列表。
+                最常用的地方就是构造器的重载。
+            重载规则:
+                被重载的方法必须改变参数列表(参数个数或类型不一样)；
+                被重载的方法可以改变返回类型；
+                被重载的方法可以改变访问修饰符；
+                被重载的方法可以声明新的或更广的检查异常；
+                方法能够在同一个类中或者在一个子类中被重载。
+                无法以返回值类型作为重载函数的区分标准。
+
+11. Java 多态
+    (1) 多态的优点
+        1. 消除类型之间的耦合关系
+        2. 可替换性
+        3. 可扩充性
+        4. 接口性
+        5. 灵活性
+        6. 简化性
+    (2) 多态存在的三个必要条件
+        继承
+        重写
+        父类引用指向子类对象
+
+        虚函数
+    （3）虚函数的存在是为了多态。
+        Java 中其实没有虚函数的概念，它的普通函数就相当于 C++ 的虚函数，
+        动态绑定是Java的默认行为。如果 Java 中不希望某个函数具有虚函数特性，
+        可以加上 final 关键字变成非虚函数。重写
+        我们已经讨论了方法的重写，也就是子类能够重写父类的方法。
+        当子类对象调用重写的方法时，调用的是子类的方法，而不是父类中被重写的方法。
+        要想调用父类中被重写的方法，则必须使用关键字 super。
+
+12. Java 抽象类
+        在Java语言中使用abstract class来定义抽象类。不能被实例化。
+    抽象方法
+        如果你想设计这样一个类，该类包含一个特别的成员方法，该方法的具体实现由它的子类确定，
+        那么你可以在父类中声明该方法为抽象方法。
+        Abstract 关键字同样可以用来声明抽象方法，抽象方法只包含一个方法名，而没有方法体。
+        抽象方法没有定义，方法名后面直接跟一个分号，而不是花括号。
+        public abstract class Employee
+        {
+            private String name;
+            private String address;
+            private int number;
+            
+            public abstract double computePay();
+            
+            //其余代码
+        }
+    声明抽象方法会造成以下两个结果：(与c++中的纯虚函数是相同的套路)。
+    如果一个类包含抽象方法，那么该类必须是抽象类。
+    任何子类必须重写父类的抽象方法，或者声明自身为抽象类。
+
+    抽象类总结规定
+        1. 抽象类不能被实例化(初学者很容易犯的错)，如果被实例化，就会报错，编译无法通过。只有抽象类的非抽象子类可以创建对象。
+        2. 抽象类中不一定包含抽象方法，但是有抽象方法的类必定是抽象类。
+        3. 抽象类中的抽象方法只是声明，不包含方法体，就是不给出方法的具体实现也就是方法的具体功能。
+        4. 构造方法，类方法（用 static 修饰的方法）不能声明为抽象方法。
+        5. 抽象类的子类必须给出抽象类中的抽象方法的具体实现，除非该子类也是抽象类。
+13. Java 接口
+    （1）接口（英文：Interface），在JAVA编程语言中是一个抽象类型，是抽象方法的集合，
+        接口通常以interface来声明。一个类通过继承接口的方式，从而来继承接口的抽象方法。
+
+    （2）接口并不是类，编写接口的方式和类很相似，
+        但是它们属于不同的概念。类描述对象的属性和方法。接口则包含类要实现的方法。
+        接口类似于抽象类，但是没有实现函数，也就是构造函数。而且接口中的变量必须被声明为static或者final类型。
+        接口不能实现，只能被继承，而且继承的类需要全部实现接口中的方法，否则就是抽象类，不能被实例化。接口支持多继承。
+
+    （3）抽象类和接口的区别：
+        1. 抽象类中的方法可以有方法体，就是能实现方法的具体功能，但是接口中的方法不行。
+        2. 抽象类中的成员变量可以是各种类型的，而接口中的成员变量只能是 public static final 类型的。
+        3. 接口中不能含有静态代码块以及静态方法(用 static 修饰的方法)，而抽象类是可以有静态代码块和静态方法。
+        4. 一个类只能继承一个抽象类，而一个类却可以实现多个接口。
+
+    （4）接口有以下特性：
+        接口是隐式抽象的，当声明一个接口的时候，不必使用abstract关键字。
+        接口中每一个方法也是隐式抽象的，声明时同样不需要abstract关键字。
+        接口中的方法都是公有的。
+
+    （5）实例
+        Animal.java 文件代码：
+        /* 文件名 : Animal.java */
+        interface Animal {
+        public void eat();
+        public void travel();
+        }
+        
+        public class MammalInt implements Animal{
+        }
+    
+    (6)重写接口中声明的方法时，需要注意以下规则：
+        类在实现接口的方法时，不能抛出强制性异常，只能在接口中，或者继承接口的抽象类中抛出该强制性异常。
+        类在重写方法时要保持一致的方法名，并且应该保持相同或者相兼容的返回值类型。
+        如果实现接口的类是抽象类，那么就没必要实现该接口的方法。
+
+        在实现接口的时候，也要注意一些规则：
+        一个类可以同时实现多个接口。
+        一个类只能继承一个类，但是能实现多个接口。
+        一个接口能继承另一个接口，这和类之间的继承比较相似。
+    
+    (7) 接口的继承
+        2. 一个接口能继承另一个接口，和类之间的继承方式比较相似。
+            接口的继承使用extends关键字，子接口继承父接口的方法。
+
+        1.在Java中，类的多继承是不合法，但接口允许多继承。
+            在接口的多继承中extends关键字只需要使用一次，在其后跟着继承接口。
+    （8）标记接口
+        最常用的继承接口是没有包含任何方法的接口。
+        标记接口是没有任何方法和属性的接口.它仅仅表明它的类属于一个特定的类型,供其他代码来测试允许做一些事情。
+        标记接口作用：简单形象的说就是给某个对象打个标（盖个戳），使对象拥有某个或某些特权。
+        例如：java.awt.event 包中的 MouseListener 接口继承的 java.util.EventListener 接口定义如下：
+        package java.util;
+        public interface EventListener
+        {}
+
+        建立一个公共的父接口：
+        正如EventListener接口，这是由几十个其他接口扩展的Java API，
+        (JVM)就知道该接口将要被用于一个事件的代理方案。
+        
+        向一个类添加数据类型：
+        这种情况是标记接口最初的目的，实现标记接口的类不需要定义任何接口方法(因为标记接口根本就没有方法)，
+        但是该类通过多态性变成一个接口类型。
+
+14. Java 数据结构
+    （1）枚举（Enumeration），实现遍历数据
+        import java.util.Vector;
+        import java.util.Enumeration;
+        public class EnumerationTester {
+        
+        public static void main(String args[]) {
+            Enumeration<String> days;
+            Vector<String> dayNames = new Vector<String>();
+            dayNames.add("Sunday");
+            dayNames.add("Monday");
+            dayNames.add("Tuesday");
+            dayNames.add("Wednesday");
+            dayNames.add("Thursday");
+            dayNames.add("Friday");
+            dayNames.add("Saturday");
+            days = dayNames.elements();
+            while (days.hasMoreElements()){
+                System.out.println(days.nextElement()); 
+            }
+         }
+        }
+    （2）位集合（BitSet）
+
+    （3）向量（Vector）
+    （4）栈（Stack）
+    （5）map
+        Map接口中键和值一一映射. 可以通过键来获取值。
+
+        给定一个键和一个值，你可以将该值存储在一个Map对象. 之后，你可以通过键来访问对应的值。
+        当访问的值不存在的时候，方法就会抛出一个NoSuchElementException异常.
+        当对象的类型和Map里元素类型不兼容的时候，就会抛出一个 ClassCastException异常。
+        当在不允许使用Null对象的Map中使用Null对象，会抛出一个NullPointerException 异常。
+        当尝试修改一个只读的Map时，会抛出一个UnsupportedOperationException异常。
+
+        HashMap：
+        1. HashMap不是线程安全的
+            HashMap是map接口的子类，是将键映射到值的对象，其中键和值都是对象，并且不能包含重复键，但可以包含重复值。HashMap允许null key和null value，而hashtable不允许。
+        2.  HashTable是线程安全。
+            HashMap是Hashtable的轻量级实现（非线程安全的实现），他们都完成了Map接口，主要区别在于HashMap允许空（null）键值（key）,由于非线程安全，效率上可能高于Hashtable。
+            HashMap允许将null作为一个entry的key或者value，而Hashtable不允许。 
+            HashMap把Hashtable的contains方法去掉了，改成containsvalue和containsKey。因为contains方法容易让人引起误解。 Hashtable继承自Dictionary类，而HashMap是Java1.2引进的Map interface的一个实现。 最大的不同是，Hashtable的方法是Synchronize的，而HashMap不是，在多个线程访问Hashtable时，不需要自己为它的方法实现同步，而HashMap 就必须为之提供外同步。 Hashtable和HashMap采用的hash/rehash算法都大概一样，所以性能不会有很大的差
+                
+    （6）哈希表（Hashtable）
+    （7）属性（Properties）
+
+15. Java 集合框架
+    集合可以看作是一种容器，用来存储对象信息。所有集合类都位于java.util包下，
+    但支持多线程的集合类位于java.util.concurrent包下。
+
+    (1)数组与集合的区别如下：
+　　    1）数组长度不可变化而且无法保存具有映射关系的数据；集合类用于保存数量不确定的数据，
+            以及保存具有映射关系的数据。
+    　　2）数组元素既可以是基本类型的值，也可以是对象；集合只能保存对象。
+    
+    (2)其中List代表了有序可重复集合，可直接根据元素的索引来访问；Set代表无序不可重复集合，
+        只能根据元素本身来访问；Queue是队列集合；Map代表的是存储key-value对的集合，可根据元素的key来访问value。
+        ArrayList、LinkedList、ArrayQueue、HashSet、TreeSet、HashMap、TreeMap。
+    （3）
+        1）HashTable
+            底层数组+链表实现，无论key还是value都不能为null，线程安全，
+            实现线程安全的方式是在修改数据时锁住整个HashTable，效率低，ConcurrentHashMap做了相关优化
+            初始size为11，扩容：newsize = olesize*2+1
+            计算index的方法：index = (hash & 0x7FFFFFFF) % tab.length。
+        2）HashMap
+            底层数组+链表实现，可以存储null键和null值，线程不安全
+            初始size为16，扩容：newsize = oldsize*2，size一定为2的n次幂
+            扩容针对整个Map，每次扩容时，原来数组中的元素依次重新计算存放位置，并重新插入
+            插入元素后才判断该不该扩容，有可能无效扩容（插入后如果扩容，如果没有再次插入，就会产生无效扩容）
+            当Map中元素总数超过Entry数组的75%，触发扩容操作，为了减少链表长度，元素分配更均匀
+            计算index方法：index = hash & (tab.length – 1)
+        3）HashMap的初始值还要考虑加载因子:
+            1. 哈希冲突：若干Key的哈希值按数组大小取模后，如果落在同一个数组下标上，将组成一条Entry链，对Key的查找需要遍历Entry链上的每个元素执行equals()比较。
+            2. 加载因子：为了降低哈希冲突的概率，默认当HashMap中的键值对达到数组大小的75%时，即会触发扩容。因此，如果预估容量是100，即需要设定100/0.75＝134的数组大小。
+            3. 空间换时间：如果希望加快Key查找的时间，还可以进一步降低加载因子，加大初始大小，以降低哈希冲突的概率。
+        4）容量（capacity）：hash表中桶的数量
+            初始化容量（initial capacity）：创建hash表时桶的数量，HashMap允许在构造器中指定初始化容量
+            尺寸（size）：当前hash表中记录的数量
+            负载因子（load factor）：负载因子等于“size/capacity”。负载因子为0，表示空的hash表，
+            0.5表示半满的散列表，依此类推。轻负载的散列表具有冲突少、适宜插入与查询的特点（
+            但是使用Iterator迭代元素时比较慢）。
+        5）除此之外，hash表里还有一个“负载极限”，“负载极限”是一个0～1的数值，
+            “负载极限”决定了hash表的最大填满程度。当hash表中的负载因子达到指定的“负载极限”时，
+            hash表会自动成倍地增加容量（桶的数量），并将原有的对象重新分配，放入新的桶内，这称为rehashing。
+        6）在HashMap中，null可以作为键，这样的键只有一个，但可以有一个或多个键所对应的值为null。
+            当get()方法返回null值时，即可以表示HashMap中没有该key，也可以表示该key所对应的value为null。因此，在HashMap中不能由get()方法来判断HashMap中是否存在某个key，应该用containsKey()方法来判断。而在Hashtable中，无论是key还是value都不能为null。
+            
+            Hashtable是线程安全的，它的方法是同步的，可以直接用在多线程环境中。
+            而HashMap则不是线程安全的，在多线程环境中，需要手动实现同步机制。
+
+        7）锁分段技术：首先将数据分成一段一段的存储，然后给每一段数据配一把锁，
+            当一个线程占用锁访问其中一个段数据的时候，其他段的数据也能被其他线程访问。 
+
+            ConcurrentHashMap提供了与Hashtable和SynchronizedMap不同的锁机制。
+            Hashtable中采用的锁机制是一次锁住整个hash表，
+            从而在同一时刻只能由一个线程对其进行操作；而ConcurrentHashMap中则是一次锁住一个桶。
+
+            ConcurrentHashMap默认将hash表分为16个桶，诸如get、put、remove等常用操作只锁住当
+            前需要用到的桶。
+            这样，原来只能一个线程进入，现在却能同时有16个写线程执行，并发性能的提升是显而易见的。
+        8）
+            1）LinkedHashSet类
+                LinkedHashSet是HashSet的一个子类，具有HashSet的特性，也是根据元素的hashCode值来决定
+                元素的存储位置。但它使用链表维护元素的次序，元素的顺序与添加顺序一致。
+                由于LinkedHashSet需要维护元素的插入顺序，因此性能略低于HashSet，
+                但在迭代访问Set里的全部元素时由很好的性能。
+
+            2）TreeSet类
+    　　        TreeSet时SortedSet接口的实现类，TreeSet可以保证元素处于排序状态，
+                它采用红黑树的数据结构来存储集合元素。TreeSet支持两种排序方法：自然排序和定制排序，
+                默认采用自然排序。
+
+            自然排序和定制排序。
+        9)List集合
+                List集合代表一个有序、可重复集合，集合中每个元素都有其对应的顺序索引。List集合默认按照元素的添加顺序设置元素的索引，
+                可以通过索引（类似数组的下标）来访问指定位置的集合元素。
+            　　 实现List接口的集合主要有：ArrayList、LinkedList、Vector、Stack。
+            1）ArrayList
+                ArrayList是一个动态数组，也是我们最常用的集合，是List类的典型实现。它允许任何符合规则的元素插入甚至包括null。
+                每一个ArrayList都有一个初始容量（10），该容量代表了数组的大小。随着容器中的元素不断增加，容器的大小也会随着增加。
+                在每次向容器中增加元素的同时都会进行容量检查，当快溢出时，就会进行扩容操作。所以如果我们明确所插入元素的多少，最好指定一个初始容量值，
+                避免过多的进行扩容操作而浪费时间、效率。
+                ArrayList擅长于随机访问。同时ArrayList是非同步的。
+            2）LinkedList
+                LinkedList是List接口的另一个实现，除了可以根据索引访问集合元素外，LinkedList还实现了Deque接口，可以当作双端队列来使用，
+                也就是说，既可以当作“栈”使用，又可以当作队列使用。
+            　　LinkedList的实现机制与ArrayList的实现机制完全不同，ArrayLiat内部以数组的形式保存集合的元素，所以随机访问集合元素有较好的性能；
+                LinkedList内部以链表的形式保存集合中的元素，所以随机访问集合中的元素性能较差，但在插入删除元素时有较好的性能。
+            3）Vector
+                与ArrayList相似，但是Vector是同步的。所以说Vector是线程安全的动态数组。它的操作与ArrayList几乎一样。
+            4）Stack
+                Stack继承自Vector，实现一个后进先出的堆栈。Stack提供5个额外的方法使得Vector得以被当作堆栈使用。基本的push和pop 方法，
+                还有peek方法得到栈顶的元素，empty方法测试堆栈是否为空，search方法检测一个元素在堆栈中的位置。Stack刚创建后是空栈。
+            5）Iterator接口和ListIterator接口
+                　　Iterator是一个接口，它是集合的迭代器。集合可以通过Iterator去遍历集合中的元素。Iterator提供的API接口如下：
+                　　♦ boolean hasNext()：判断集合里是否存在下一个元素。如果有，hasNext()方法返回 true。
+                　　♦ Object next()：返回集合里下一个元素。
+                　　♦ void remove()：删除集合里上一次next方法返回的元素。
+
+                　　ListIterator接口继承Iterator接口，提供了专门操作List的方法。ListIterator接口在Iterator接口的基础上增加了以下几个方法：
+                　　♦ boolean hasPrevious()：判断集合里是否存在上一个元素。如果有，该方法返回 true。
+                　　♦ Object previous()：返回集合里上一个元素。
+                　　♦ void add(Object o)：在指定位置插入一个元素。
+
+                　　以上两个接口相比较，不难发现，ListIterator增加了向前迭代的功能（Iterator只能向后迭代），
+                    ListIterator还可以通过add()方法向List集合中添加元素（Iterator只能删除元素）。
+        10）Map集合
+　　        Map接口采用键值对Map<K,V>的存储方式，保存具有映射关系的数据，因此，Map集合里保存两组值，一组值用于保存Map里的key，
+            另外一组值用于保存Map里的value，key和value可以是任意引用类型的数据。key值不允许重复，可以为null。
+            如果添加key-value对时Map中已经有重复的key，则新添加的value会覆盖该key原来对应的value。
+            常用实现类有HashMap、LinkedHashMap、TreeMap等。
+
+            1）HashMap与Hashtable
+                HashMap与Hashtable是Map接口的两个典型实现，它们之间的关系完全类似于ArrayList与Vertor。
+                HashTable是一个古老的Map实现类，它提供的方法比较繁琐，目前基本不用了，HashMap与Hashtable主要存在以下两个典型区别：
+                ♦ HashMap是线程不安全，HashTable是线程安全的。
+                ♦ HashMap可以使用null值最为key或value；Hashtable不允许使用null值作为key和value，如果把null放进HashTable中，将会发生空指针异常。
+                为了成功的在HashMap和Hashtable中存储和获取对象，用作key的对象必须实现hashCode()方法和equals()方法。
+                HashMap工作原理如下：
+                HashMap基于hashing原理，通过put()和get()方法存储和获取对象。当我们将键值对传递给put()方法时，
+                它调用建对象的hashCode()方法来计算hashCode值，然后找到bucket位置来储存值对象。当获取对象时，
+                通过建对象的equals()方法找到正确的键值对，然后返回对象。HashMap使用链表来解决碰撞问题，当发生碰撞了，对象将会存储在链表的下一个节点中。
+            2）LinkedHashMap实现类
+                LinkedHashMap使用双向链表来维护key-value对的次序（其实只需要考虑key的次序即可），
+                该链表负责维护Map的迭代顺序，与插入顺序一致，因此性能比HashMap低，但在迭代访问Map里的全部元素时有较好的性能。
+            3）Properties
+                Properties类时Hashtable类的子类，它相当于一个key、value都是String类型的Map，主要用于读取配置文件。
+            4）TreeMap实现类
+                TreeMap是SortedMap的实现类，是一个红黑树的数据结构，每个key-value对作为红黑树的一个节点。TreeMap存储key-value对时，
+                需要根据key对节点进行排序。TreeMap也有两种排序方式：
+                　　♦ 自然排序：TreeMap的所有key必须实现Comparable接口，而且所有的key应该是同一个类的对象，否则会抛出ClassCastException。
+                　　♦ 定制排序：创建TreeMap时，传入一个Comparator对象，该对象负责对TreeMap中的所有key进行排序。
+            5）各Map实现类的性能分析
+            　　♦ HashMap通常比Hashtable（古老的线程安全的集合）要快
+            　　♦ TreeMap通常比HashMap、Hashtable要慢，因为TreeMap底层采用红黑树来管理key-value。
+            　　♦ LinkedHashMap比HashMap慢一点，因为它需要维护链表来保存key-value的插入顺序。
+16. Java泛型（跟c++类似）
+    （1）泛型方法
+        // 泛型方法 printArray                         
+        public static < E > void printArray( E[] inputArray )
+        {
+            // 输出数组元素            
+            for ( E element : inputArray ){        
+                System.out.printf( "%s ", element );
+            }
+            System.out.println();
+        }
+
+        有界的类型参数:？？？？？？
+            要声明一个有界的类型参数，首先列出类型参数的名称，后跟extends关键字，最后紧跟它的上界。
+            // 比较三个值并返回最大值
+            public static <T extends Comparable<T>> T maximum(T x, T y, T z)
+            {                     
+                T max = x; // 假设x是初始最大值
+                if ( y.compareTo( max ) > 0 ){
+                    max = y; //y 更大
+                }
+                if ( z.compareTo( max ) > 0 ){
+                    max = z; // 现在 z 更大           
+                }
+                return max; // 返回最大对象
+            }
+    （2）泛型类
+        和泛型方法一样，泛型类的类型参数声明部分也包含一个或多个类型参数，参数间用逗号隔开。一个泛型参数，也被称为一个类型变量，
+        是用于指定一个泛型类型名称的标识符。因为他们接受一个或多个参数，这些类被称为参数化的类或参数化的类型。
+        public class Box<T> {
+        
+            private T t;
+            
+            public void add(T t) {
+                this.t = t;
+            }
+            
+            public T get() {
+                return t;
+            }
+            
+            public static void main(String[] args) {
+                Box<Integer> integerBox = new Box<Integer>();
+                Box<String> stringBox = new Box<String>();
+            
+                integerBox.add(new Integer(10));
+                stringBox.add(new String("菜鸟教程"));
+            
+                System.out.printf("整型值为 :%d\n\n", integerBox.get());
+                System.out.printf("字符串为 :%s\n", stringBox.get());
+            }
+        }
+    （3）类型通配符
+        1、类型通配符一般是使用?代替具体的类型参数。例如 List<?> 在逻辑上是List<String>,List<Integer> 等所有List<具体类型实参>的父类。
+        import java.util.*;
+ 
+        public class GenericTest {
+            
+            public static void main(String[] args) {
+                List<String> name = new ArrayList<String>();
+                List<Integer> age = new ArrayList<Integer>();
+                List<Number> number = new ArrayList<Number>();
+                
+                name.add("icon");
+                age.add(18);
+                number.add(314);
+        
+                getData(name);
+                getData(age);
+                getData(number);
+            
+        }
+        
+        public static void getData(List<?> data) {
+            System.out.println("data :" + data.get(0));
+        }
+        }
+17. Java 序列化(待完善！！！！！！)
+    （1）Java 提供了一种对象序列化的机制，该机制中，一个对象可以被表示为一个字节序列。
+        将序列化对象写入文件之后，可以从文件中读取出来，并且对它进行反序列化，也就是说，对象的类型信息、
+        对象的数据，还有对象中的数据类型可以用来在内存中新建对象。
+        整个过程都是 Java 虚拟机（JVM）独立的，也就是说，
+        在一个平台上序列化的对象可以在另一个完全不同的平台上反序列化该对象
+
+18. Java 多线程编程
+    Java多线程：
+        （1）新建状态:
+            使用 new 关键字和 Thread 类或其子类建立一个线程对象后，该线程对象就处于新建状态。它保持这个状态直到程序 start() 这个线程。
+        （2）就绪状态:
+            当线程对象调用了start()方法之后，该线程就进入就绪状态。就绪状态的线程处于就绪队列中，要等待JVM里线程调度器的调度。
+        （3）运行状态:
+            如果就绪状态的线程获取 CPU 资源，就可以执行 run()，此时线程便处于运行状态。处于运行状态的线程最为复杂，它可以变为阻塞状态、就绪状态和死亡状态。
+        （4）阻塞状态:
+            如果一个线程执行了sleep（睡眠）、suspend（挂起）等方法，失去所占用资源之后，该线程就从运行状态进入阻塞状态。在睡眠时间已到或获得设备资源后可以重新进入就绪状态。可以分为三种：
+        （5）等待阻塞：运行状态中的线程执行 wait() 方法，使线程进入到等待阻塞状态。
+        （6）同步阻塞：线程在获取 synchronized 同步锁失败(因为同步锁被其他线程占用)。
+                    其他阻塞：通过调用线程的 sleep() 或 join() 发出了 I/O 请求时，线程就会进入到阻塞状态。当sleep() 状态超时，join() 等待线程终止或超时，或者 I/O 处理完毕，线程重新转入就绪状态。
+        （7）死亡状态:
+            一个运行状态的线程完成任务或者其他终止条件发生时，该线程就切换到终止状态。
+    Java 提供了三种创建线程的方法:
+    （1）覆写Runnable()接口实现多线程，而后同样覆写run().推荐此方式
+        public class MyThread implements Runnable{
+            public static int count=20;
+            public void run() {
+                while(count>0) {
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(Thread.currentThread().getName()+"-当前剩余票数:"+count--);
+                }
+            }
+            public static void main(String[] args) {
+                MyThread Thread1=new MyThread();
+                Thread mThread1=new Thread(Thread1,"线程1");
+                Thread mThread2=new Thread(Thread1,"线程2");
+                Thread mThread3=new Thread(Thread1,"线程3");
+                mThread1.start();
+                mThread2.start();
+                myThread3.start();
+            }
+        }
+    
+    （2）通过继承 Thread 类本身；
+        public class MyThread extends Thread {
+                public MyThread() {
+                    
+                }
+                public void run() {
+                    for(int i=0;i<10;i++) {
+                        System.out.println(Thread.currentThread()+":"+i);
+                    }
+                }
+                public static void main(String[] args) {
+                    MyThread mThread1=new MyThread();
+                    MyThread mThread2=new MyThread();
+                    MyThread myThread3=new MyThread();
+                    mThread1.start();
+                    mThread2.start();
+                    myThread3.start();
+            }
+            继承Thread和实现Runnable接口的区别
+                a.实现Runnable接口避免多继承局限
+                b.实现Runnable()可以更好的体现共享的概念
+
+            class ThreadDemo extends Thread {
+                private Thread t;
+                private String threadName;
+                
+                ThreadDemo( String name) {
+                    threadName = name;
+                    System.out.println("Creating " +  threadName );
+                }
+                
+                public void run() {
+                    System.out.println("Running " +  threadName );
+                    try {
+                        for(int i = 4; i > 0; i--) {
+                            System.out.println("Thread: " + threadName + ", " + i);
+                            // 让线程睡眠一会
+                            Thread.sleep(50);
+                        }
+                    }catch (InterruptedException e) {
+                        System.out.println("Thread " +  threadName + " interrupted.");
+                    }
+                    System.out.println("Thread " +  threadName + " exiting.");
+                }
+                
+                public void start () {
+                    System.out.println("Starting " +  threadName );
+                    if (t == null) {
+                        t = new Thread (this, threadName);
+                        t.start ();
+                    }
+                }
+            }
+ 
+public class TestThread {
+ 
+   public static void main(String args[]) {
+      ThreadDemo T1 = new ThreadDemo( "Thread-1");
+      T1.start();
+      
+      ThreadDemo T2 = new ThreadDemo( "Thread-2");
+      T2.start();
+   }   
+}
+
+
+        （3）通过 Callable 和 Future 创建线程
+
+19. Java Object类方法
+    Object 是 Java 类库中的一个特殊类，也是所有类的父类。当一个类被定义后，如果没有指定继承的父类，
+    那么默认父类就是 Object 类。因此，以下两个类是等价的。
+        public class MyClass{…}
+    等价于
+        public class MyClass extends Object {…}
+
+
