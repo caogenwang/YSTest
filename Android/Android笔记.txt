@@ -1,0 +1,129 @@
+1. Android 启动的入口？
+
+
+2. abstract关键字
+    （1）当父类的某些方法不确定时，可以用abstract关键字来修饰该方法[抽象方法]，用abstract来修饰该类[抽象类]。
+    （2）抽象方法不能有方法主体
+    （3）用abstract修饰的类，即抽象类；用abstract修饰的方法，即抽象方法。
+    （4）抽象方法不能有方法主体。格式如下：
+        abstract void xxx();
+    （5）抽象类不能被实例化。因为抽象类中方法未具体化，这是一种不完整的类，所以直接实例化也就没有意义了。
+    （6）抽象类中不一定要包含abstrace方法。也就是了，抽象中可以没有abstract方法。
+    （7）一旦类中包含了abstract方法，那类该类必须声明为abstract类.
+
+3.Java之final关键字详解.
+    (1) 修饰类
+        当用final去修饰一个类的时候，表示这个类不能被继承。
+        注意：
+        a. 被final修饰的类，final类中的成员变量可以根据自己的实际需要设计为fianl。
+        b. final类中的成员方法都会被隐式的指定为final方法。
+        说明：
+        在自己设计一个类的时候，要想好这个类将来是否会被继承，如果可以被继承，
+        则该类不能使用fianl修饰，在这里呢，一般来说工具类我们往往都会设计成为一个fianl类。在JDK中，
+        被设计为final类的有String、System等。
+    (2) 修饰方法
+        被final修饰的方法不能被重写。
+        注意：
+        a. 一个类的private方法会隐式的被指定为final方法。
+        b. 如果父类中有final修饰的方法，那么子类不能去重写。
+    (3) 修饰成员变量,类似于const常量
+        注意：
+        a. 必须要赋初始值，而且是只能初始化一次。
+        b. 被fianl修饰的成员变量赋值，有两种方式：1、直接赋值 2、全部在构造方法中赋初值。
+        c. 如果修饰的成员变量是基本类型，则表示这个变量的值不能改变。
+        d. 如果修饰的成员变量是一个引用类型，则是说这个引用的地址的值不能修改，
+           但是这个引用所指向的对象里面的内容还是可以改变的。
+
+4.Java数据类型之引用型数据类型
+    （1）我们接着来说数据类型，上一次我们提到了java中的八种数据类型，没有涉及到引用类型，
+        而java的引用类型只有三种，分别是类(class)、接口(interface)、数组。
+        Java把内存分成两种，一种叫做栈内存，一种叫做堆内存。
+    （2）在函数中定义的一些基本类型的变量和对象的引用变量都是在函数的栈内存中分配。
+        当在一段代码块中定义一个变量时，java就在栈中为这个变量分配内存空间，
+        当超过变量的作用域后，java会自动释放掉为该变量分配的内存空间，该内存空间可以立刻被另作他用。
+        堆内存用于存放由new创建的对象和数组。在堆中分配的内存，由java虚拟机自动垃圾回收器来管理。
+        在堆中产生了一个数组或者对象后，还可以在栈中定义一个特殊的变量，这个变量的取值等于数组或者对象在堆内存
+        中的首地址，在栈中的这个特殊的变量就变成了数组或者对象的引用变量，以后就可以在程序中使用栈内存中的引用
+        变量来访问堆中的数组或者对象，引用变量相当于为数组或者对象起的一个别名。
+    （3）在数据做为参数传递的时候，基本数据类型是值传递，引用数据类型是引用传递（地址传递），
+
+5. Intent作为Activity之间切换的工具
+    （1）显式Intent：Intent intent = new Intent(FirstActivity.this,SecondActivity.class);
+                    startActivity(intent);
+    （2）隐式Intent：
+
+6. 活动启动的模式：
+    （1）standard：默认的启动模式，但是会重复创建栈顶。
+    （2）signleTop：处于栈顶的活动不再重复创建。
+    （3）signaTask：环境中只创建一个活动。
+    （4）signalInstance：可以使其他程序可以共享这个实例，单独创建一个返回栈来管理。
+
+7. 碎片
+    （1）静态加载
+    （2）动态加载：
+
+8. android 按钮 onClick 五种事件写法。
+
+        //第一种、匿名内部类： 
+        btn_back.setOnClickListener(new OnClickListener() {
+        @Override
+        public void onClick(View arg0) {
+        }
+        });
+
+        //2 实现 View.OnClickListener
+        btn_back.setOnClickListener(this);
+        自定义单击事件监听类： 
+        @Override
+        public void onClick(View arg0) {
+            switch (arg0.getId()){  
+                case R.id.bt_dial:  
+        }
+
+        //3 xml文件
+        android:onClick="Btn3OnClick"
+        public void Btn3OnClick(View view){    
+            String strTmp="点击Button03";  
+            btn_over.setText(strTmp);  
+            }    
+
+        //4            
+        btn_back.setOnClickListener(listener);  
+        Button.OnClickListener listener = new Button.OnClickListener(){//创建监听对象     
+            public void onClick(View v){    
+            }
+        }
+
+
+        //5. 
+
+        @OnClick(R.id.btn_back)
+        public void fh(View v) { 
+            return null;
+        }
+
+
+9.@BindView的用法：
+    代替：
+
+    findviewbyid方法。
+
+10. Android消息传递之EventBus
+    https://www.cnblogs.com/whoislcj/p/5595714.html。
+
+11.adapter：
+    https://www.runoob.com/w3cnote/android-tutorial-adapter.html
+
+    将各种数据以合适的形式显示到view上,提供 给用户看！
+
+
+
+12. ViewPager(视图滑动切换工具)
+    https://www.runoob.com/w3cnote/android-tutorial-viewpager.html
+
+13.Android的布局方式：
+
+
+14.Listview
+    实现数据的滚动，和adapter一起使用加载数据，通过手动滑动来实现数据的展示，还可以注册点击事件
+    通过点击的位置选择不同的页面。

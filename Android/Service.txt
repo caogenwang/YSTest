@@ -1,0 +1,17 @@
+1. service是实现后台服务，但是服务不运行在独立的进程中，进程被杀死，所有依赖此进程的服务
+    都要被干掉。
+
+2. Android消息异步处理机制，因为不能再子线程中更新UI,通过给主线程发送消息，
+    由主线程更新UI。
+
+3. 解析异步消息处理机制。
+    Message,Handler,MessageQueue,Looper。
+    Message在不同的线程之间传递消息。
+
+4. 使用AsyncTask。
+    异步执行任务，doinbackground在后台执行，其他的方法在主线程。
+
+5. service的构建
+    重载服务，AndroidMainFest.xml中添加服务，服务的启动和停止，采用intent;
+
+6. RecyclerView和Apapter配合实现Fragment的屏幕的展示，包括listView。

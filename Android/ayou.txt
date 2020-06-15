@@ -1,0 +1,2 @@
+1. MainActivity:
+2. BottomNavigationEntity,底部状态栏
