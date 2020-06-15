@@ -1,0 +1,10 @@
+#首先执行以下脚本，编译库
+
+sh /Users/yangsen/Library/Android/sdk/ndk-bundle/build/tools/make-standalone-toolchain.sh --platform=android-28 --install-dir=./android-toolchain  --toolchain=arm-linux-androideabi-4.8
+
+
+
+cmake -DCMAKE_TOOLCHAIN_FILE=../android.toolchain.cmake -DANDROID_NDK=/Users/yangsen/android-ndk-r11c -DCMAKE_BUILD_TYPE=Release -DANDROID_ABI="armeabi-v7a with NEON" /Users/yangsen/work/HKP2H && cmake --build .
+
+
+#注意路径的修改
