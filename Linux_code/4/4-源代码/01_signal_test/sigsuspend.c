@@ -22,7 +22,7 @@ unsigned int mysleep(unsigned int nsecs)//使任务挂起，不执行
     //2.设置阻塞信号集，阻塞SIGALRM信号
     sigemptyset(&newmask);
     sigaddset(&newmask, SIGALRM);
-   sigprocmask(SIG_BLOCK, &newmask, &oldmask);   //信号屏蔽字 mask
+    sigprocmask(SIG_BLOCK, &newmask, &oldmask);   //信号屏蔽字 mask
 
     //3.定时n秒，到时后可以产生SIGALRM信号
     alarm(nsecs);

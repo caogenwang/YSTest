@@ -38,7 +38,7 @@ int main(void)
             sys_err("fork");
     }
 
-    if (pid == 0) {     //10个子进程
+    if (pid == 0) {     //10个子进程,每个进程都进来，n是独享的
         int n = 1;
         while (n--) {
             printf("child ID %d\n", getpid());

@@ -3,6 +3,7 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <sys/mman.h>
+#include <pthread.h>
 
 #define T_NUM 5
 #define ITEMS 50
