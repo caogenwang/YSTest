@@ -9,13 +9,14 @@ public:
     std::string removeKdigits(std::string num, int k) {
     	std::vector<int> S;
     	std::string result = "";
-    	for (int i = 0; i < num.length(); i++){
+    	for (int i = 0; i < num.length(); i++)
+		{
 	    	int number = num[i] - '0';
 	    	while(S.size() != 0 && S[S.size()-1] > number && k > 0){//S[S.size()-1]模拟栈顶
 	    		S.pop_back();
 	    		k--;
 	    	}
-	    	if (number != 0 || S.size() != 0){
+	    	if (number != 0 || S.size() != 0){//如果size等于0，再压入0是没有意义的
 	    		S.push_back(number);
 	    	}
 	    }
