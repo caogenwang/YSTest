@@ -5,7 +5,7 @@ class Solution {
 public:
     int climbStairs(int n) {
     	std::vector<int> dp(n + 3, 0);
-    	dp[1] = 1;
+    	dp[1] = 1;//dp代表跳到这层台阶的方法种数
     	dp[2] = 2;
     	for (int i = 3; i <= n; i++){
 	    	dp[i] = dp[i-1] + dp[i-2];

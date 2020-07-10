@@ -8,7 +8,7 @@ public:
     	if (nums.size() == 0){
 	    	return 0;
 	    }
-        std::vector<int> dp(nums.size(), 0);
+        std::vector<int> dp(nums.size(), 0);//以当前数为结尾的最大连续递增子序列
         dp[0] = 1;
         int LIS = 1;
         for (int i = 1; i < dp.size(); i++){

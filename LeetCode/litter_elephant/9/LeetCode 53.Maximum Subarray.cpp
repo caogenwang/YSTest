@@ -6,7 +6,7 @@ public:
     int maxSubArray(std::vector<int>& nums) {
     	std::vector<int> dp(nums.size(), 0);
     	dp[0] = nums[0];
-    	int max_res = dp[0];
+    	int max_res = dp[0];//以当前数为结尾的最大连续和最大的序列
     	for (int i = 1; i < nums.size(); i++){
 	    	dp[i] = std::max(dp[i-1] + nums[i], nums[i]);
 	    	if (max_res < dp[i]){

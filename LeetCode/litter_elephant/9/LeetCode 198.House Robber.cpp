@@ -10,7 +10,7 @@ public:
 	    if (nums.size() == 1){
     		return nums[0];
     	}
-    	std::vector<int> dp(nums.size(), 0);
+    	std::vector<int> dp(nums.size(), 0);//选择当前房间所能获得的最大值
     	dp[0] = nums[0];
     	dp[1] = std::max(nums[0], nums[1]);
     	for (int i = 2; i < nums.size(); i++){
